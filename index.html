@@ -17,6 +17,170 @@ form{max-width:780px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1
 footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:11px}.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-links{display:flex;gap:18px}.footer-links button{background:none;border:0;color:var(--muted);font-size:11px}.footer-links button:hover{color:var(--text)}
 @media(max-width:760px){.nav{min-height:72px}.menu{display:block}.nav-links{display:none;position:absolute;top:72px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 4%;flex-direction:column;align-items:stretch}.nav-links.open{display:flex}.nav-links button{text-align:left}.hero-grid,.split{grid-template-columns:1fr}.hero{min-height:auto;padding:30px 0}.hero-art{min-height:230px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr;margin-bottom:50px}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.section-title{display:block}.section-title p{margin-top:15px}.form-grid{grid-template-columns:1fr}.page{padding:48px 0 65px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Secret Drone Dodge Easter Egg */
+.drone-game-overlay{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:rgba(2,7,14,.76);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+}
+.drone-game-overlay.open{display:flex}
+.drone-game-window{
+    animation:droneEggPop .22s ease-out;
+}
+@keyframes droneEggPop{
+    from{opacity:0;transform:scale(.88) translateY(18px)}
+    to{opacity:1;transform:scale(1) translateY(0)}
+}
+.drone-phone{
+    position:relative;
+    width:min(380px,88vw);
+    aspect-ratio:9/19.5;
+    padding:10px;
+    border-radius:42px;
+    background:linear-gradient(145deg,#30343a,#080a0d 42%,#25292e);
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.7),
+        inset 0 0 0 1px rgba(255,255,255,.2),
+        0 0 0 1px rgba(255,255,255,.08);
+}
+.drone-phone-screen{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    border-radius:34px;
+    background:#07111f;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.drone-phone-speaker{
+    position:absolute;
+    z-index:5;
+    top:15px;
+    left:50%;
+    width:88px;
+    height:25px;
+    transform:translateX(-50%);
+    border-radius:20px;
+    background:#030405;
+    box-shadow:inset 0 1px 3px rgba(255,255,255,.08);
+}
+.drone-phone-home{
+    position:absolute;
+    z-index:6;
+    bottom:17px;
+    left:50%;
+    width:92px;
+    height:4px;
+    transform:translateX(-50%);
+    border-radius:5px;
+    background:rgba(255,255,255,.8);
+}
+.drone-game-topbar{
+    position:absolute;
+    z-index:4;
+    top:0;
+    left:0;
+    right:0;
+    height:62px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:17px 13px 0 17px;
+    color:#fff;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    background:linear-gradient(180deg,rgba(2,8,15,.72),transparent);
+    pointer-events:none;
+}
+.drone-game-topbar span{opacity:.9}
+.drone-game-close{
+    pointer-events:auto;
+    width:30px;
+    height:30px;
+    padding:0;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:50%;
+    background:rgba(5,10,17,.68);
+    color:#fff;
+    font-size:18px;
+    line-height:1;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+}
+.drone-game-close:hover{background:rgba(255,255,255,.16)}
+.drone-game-canvas-wrap{
+    position:absolute;
+    inset:0;
+    touch-action:none;
+    user-select:none;
+    -webkit-user-select:none;
+}
+#droneDodgeCanvas{
+    display:block;
+    width:100%;
+    height:100%;
+}
+.drone-game-hud{
+    position:absolute;
+    top:57px;
+    left:15px;
+    right:15px;
+    display:flex;
+    justify-content:space-between;
+    pointer-events:none;
+    color:#fff;
+    text-shadow:0 2px 8px rgba(0,0,0,.45);
+}
+.drone-game-hud div{text-align:center;min-width:48px}
+.drone-game-hud small{display:block;font-size:7px;letter-spacing:1.4px;opacity:.75}
+.drone-game-hud strong{display:block;font-size:21px;line-height:22px}
+.drone-game-message{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+    background:radial-gradient(circle,rgba(4,16,28,.35),rgba(3,8,15,.42));
+}
+.drone-game-message.hidden{display:none}
+.drone-game-message-title{
+    font-size:27px;
+    font-weight:900;
+    letter-spacing:2px;
+    text-shadow:0 4px 20px rgba(0,0,0,.6);
+}
+.drone-game-message-sub{
+    margin:7px 0 17px;
+    font-size:12px;
+    opacity:.78;
+}
+#droneStartButton{
+    border:0;
+    border-radius:999px;
+    padding:12px 24px;
+    background:#fff;
+    color:#07111f;
+    font-weight:900;
+    letter-spacing:1px;
+    cursor:pointer;
+    box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+#droneStartButton:hover{transform:translateY(-1px)}
+.brand{cursor:pointer;user-select:none}
+
 </style>
 </head>
 <body>
@@ -35,6 +199,37 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
 <section class="page" id="enquire"><div class="container"><div class="section-title"><div><div class="eyebrow">Let's talk</div><h2>Start an enquiry.</h2></div><p>Tell us a little about your project and we will have the information needed to discuss the next steps.</p></div><form id="enquiryForm"><div class="form-grid"><div class="field"><label for="name">Name</label><input id="name" required placeholder="Your name"></div><div class="field"><label for="email">Email</label><input id="email" type="email" required placeholder="you@example.com"></div></div><div class="form-grid"><div class="field"><label for="company">Company (optional)</label><input id="company" placeholder="Company name"></div><div class="field"><label for="service">Service</label><select id="service"><option value="">Choose a service</option><option>Drone leasing</option><option>Aerial services</option><option>Surveying and mapping</option><option>3D scanning</option><option>Aerial transport</option><option>Emergency support</option><option>Private videography</option><option>Private photography</option><option>Other / custom project</option></select></div></div><div class="field"><label for="message">Project details</label><textarea id="message" required placeholder="Include the location, timeframe and what you need help with."></textarea></div><button class="btn primary" type="submit">Prepare enquiry summary ↗</button><p class="notice">Demo form: this version does not send emails. Connect it to your email service or CRM before launch.</p></form><div id="result" class="result" hidden></div></div></section>
 </main>
 <footer><div class="container footer-inner"><span>© <span id="year"></span> AIRBORNE INDUSTRIES · AERIAL TECHNOLOGY</span><div class="footer-links"><button data-page="team">Meet the team</button><button data-page="enquire">Contact us</button></div></div></footer>
+
+<!-- Secret Drone Dodge Easter Egg -->
+<div class="drone-game-overlay" id="droneGameOverlay" aria-hidden="true">
+    <div class="drone-game-window" role="dialog" aria-label="Secret Drone Dodge game">
+        <div class="drone-phone">
+            <div class="drone-phone-speaker"></div>
+            <div class="drone-phone-screen">
+                <div class="drone-game-topbar">
+                    <span>DRONE DODGE</span>
+                    <button class="drone-game-close" id="droneGameClose" aria-label="Close Drone Dodge">×</button>
+                </div>
+
+                <div class="drone-game-canvas-wrap">
+                    <canvas id="droneDodgeCanvas" width="390" height="844"></canvas>
+                    <div class="drone-game-hud">
+                        <div><small>SCORE</small><strong id="droneScore">0</strong></div>
+                        <div><small>BEST</small><strong id="droneBest">0</strong></div>
+                    </div>
+                    <div class="drone-game-message" id="droneGameMessage">
+                        <div class="drone-game-message-title">DRONE DODGE</div>
+                        <div class="drone-game-message-sub">Tap to fly</div>
+                        <button id="droneStartButton">START</button>
+                    </div>
+                </div>
+
+                <div class="drone-phone-home"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 const pages=[...document.querySelectorAll('.page')];const nav=[...document.querySelectorAll('[data-page]')];const navLinks=document.getElementById('navLinks');const menu=document.getElementById('menu');
 function showPage(name){const target=document.getElementById(name)||document.getElementById('home');pages.forEach(p=>p.classList.toggle('active',p===target));document.querySelectorAll('.nav-links button').forEach(b=>b.classList.toggle('active',b.dataset.page===target.id));navLinks.classList.remove('open');menu.textContent='☰ Menu';window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'','#'+target.id)}
@@ -43,6 +238,482 @@ const services=[['leasing','Drone leasing','Flexible access to drone equipment f
 const serviceGrid=document.getElementById('serviceGrid');const detail=document.getElementById('serviceDetail');services.forEach((s,i)=>{const card=document.createElement('article');card.className='card';card.innerHTML=`<div class="num">0${i+1} / CAPABILITY</div><h3>${s[1]}</h3><p>${s[2]}</p><button class="btn" style="margin-top:20px">View capability →</button>`;card.querySelector('button').addEventListener('click',()=>{detail.style.display='block';detail.innerHTML=`<h3>${s[1]}</h3><p>${s[2]} Each project is assessed for equipment, location, operating requirements, permissions and deliverables.</p><div class="buttons"><button class="btn primary" id="discuss">Discuss this service ↗</button><button class="btn" id="close">Close</button></div>`;document.getElementById('discuss').onclick=()=>showPage('enquire');document.getElementById('close').onclick=()=>detail.style.display='none';detail.scrollIntoView({behavior:'smooth',block:'nearest'})});serviceGrid.appendChild(card)});
 const form=document.getElementById('enquiryForm');const result=document.getElementById('result');form.addEventListener('submit',e=>{e.preventDefault();const summary=`AIRBORNE INDUSTRIES — ENQUIRY\n\nName: ${name.value}\nEmail: ${email.value}\nCompany: ${company.value||'Not specified'}\nService: ${service.value||'Not specified'}\n\nProject details:\n${message.value}`;result.hidden=false;result.innerHTML=`<h3>Enquiry summary prepared</h3><pre style="white-space:pre-wrap;margin-top:10px;font:inherit;font-size:13px"></pre><div class="buttons"><button class="btn primary" id="copy">Copy summary</button></div>`;result.querySelector('pre').textContent=summary;document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText(summary);document.getElementById('copy').textContent='Copied ✓'}catch{document.getElementById('copy').textContent='Copy unavailable'}}});
 document.getElementById('year').textContent=new Date().getFullYear();const initial=location.hash.slice(1);if(initial&&document.getElementById(initial))showPage(initial);
+
+/* =========================================
+   SECRET DRONE DODGE EASTER EGG
+   FULLY EMBEDDED, PHONE-STYLE GAME
+   5 FAST CLICKS ON AIRBORNE LOGO
+   ========================================= */
+
+const airborneLogo = document.querySelector('.brand');
+const droneGameOverlay = document.getElementById('droneGameOverlay');
+const droneGameClose = document.getElementById('droneGameClose');
+const droneCanvas = document.getElementById('droneDodgeCanvas');
+const droneCtx = droneCanvas.getContext('2d');
+const droneScoreEl = document.getElementById('droneScore');
+const droneBestEl = document.getElementById('droneBest');
+const droneMessage = document.getElementById('droneGameMessage');
+const droneStartButton = document.getElementById('droneStartButton');
+
+let logoClicks = 0;
+let logoClickTimer = null;
+
+let droneGameRunning = false;
+let droneGameOver = false;
+let droneScore = 0;
+let droneBest = Number(localStorage.getItem('droneDodgeBest') || 0);
+let droneAnimation = 0;
+let droneLastTime = 0;
+let droneSpawnTimer = 0;
+let droneWorldSpeed = 2.8;
+let dronePlayer = {x:82,y:390,vy:0,rotation:0};
+let droneObstacles = [];
+let droneParticles = [];
+let droneClouds = [
+    {x:55,y:120,s:1.0},
+    {x:260,y:185,s:.72},
+    {x:155,y:285,s:.55},
+    {x:330,y:90,s:.48}
+];
+
+droneBestEl.textContent = droneBest;
+
+function droneResizeCanvas(){
+    const rect = droneCanvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1,2);
+    droneCanvas.width = Math.max(1,Math.round(rect.width*dpr));
+    droneCanvas.height = Math.max(1,Math.round(rect.height*dpr));
+    droneCtx.setTransform(dpr,0,0,dpr,0,0);
+}
+window.addEventListener('resize',droneResizeCanvas);
+droneResizeCanvas();
+
+function droneOpen(){
+    droneGameOverlay.classList.add('open');
+    droneGameOverlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    droneResizeCanvas();
+    droneReset();
+}
+
+function droneClose(){
+    droneGameRunning=false;
+    cancelAnimationFrame(droneAnimation);
+    droneGameOverlay.classList.remove('open');
+    droneGameOverlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    logoClicks=0;
+}
+
+function droneReset(){
+    droneGameRunning=false;
+    droneGameOver=false;
+    droneScore=0;
+    droneWorldSpeed=2.8;
+    droneSpawnTimer=0;
+    dronePlayer={x:82,y:droneCanvas.clientHeight*.46,vy:0,rotation:0};
+    droneObstacles=[];
+    droneParticles=[];
+    droneScoreEl.textContent='0';
+    droneBestEl.textContent=droneBest;
+    droneMessage.classList.remove('hidden');
+    droneStartButton.textContent='START';
+    droneDraw();
+}
+
+function droneStart(){
+    if(droneGameRunning)return;
+    droneGameRunning=true;
+    droneGameOver=false;
+    droneScore=0;
+    droneWorldSpeed=2.8;
+    droneSpawnTimer=0;
+    dronePlayer={x:82,y:droneCanvas.clientHeight*.46,vy:0,rotation:0};
+    droneObstacles=[];
+    droneParticles=[];
+    droneScoreEl.textContent='0';
+    droneMessage.classList.add('hidden');
+    droneLastTime=performance.now();
+    droneAnimation=requestAnimationFrame(droneLoop);
+    droneFlap();
+}
+
+function droneFlap(){
+    if(!droneGameRunning)return;
+    dronePlayer.vy=-7.1;
+    dronePlayer.rotation=-.22;
+
+    for(let i=0;i<5;i++){
+        droneParticles.push({
+            x:dronePlayer.x-17,
+            y:dronePlayer.y+4,
+            vx:-Math.random()*2-1,
+            vy:(Math.random()-.5)*1.4,
+            life:1,
+            size:Math.random()*3+1
+        });
+    }
+
+    try{
+        const ac=window.__droneAudio||(window.__droneAudio=new (window.AudioContext||window.webkitAudioContext)());
+        const osc=ac.createOscillator(), gain=ac.createGain();
+        osc.frequency.value=420;
+        gain.gain.setValueAtTime(.035,ac.currentTime);
+        gain.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.08);
+        osc.connect(gain).connect(ac.destination);
+        osc.start();
+        osc.stop(ac.currentTime+.08);
+    }catch(e){}
+}
+
+function droneSpawn(){
+    const h=droneCanvas.clientHeight;
+    const gap=Math.max(170,215-droneScore*1.2);
+    const minTop=95;
+    const maxTop=Math.max(minTop+10,h-gap-115);
+    const top=minTop+Math.random()*(maxTop-minTop);
+
+    droneObstacles.push({
+        x:droneCanvas.clientWidth+35,
+        top,
+        gap,
+        width:58,
+        passed:false
+    });
+}
+
+function droneCrash(){
+    if(droneGameOver)return;
+    droneGameOver=true;
+    droneGameRunning=false;
+
+    for(let i=0;i<28;i++){
+        droneParticles.push({
+            x:dronePlayer.x,
+            y:dronePlayer.y,
+            vx:(Math.random()-.5)*6,
+            vy:(Math.random()-.5)*6,
+            life:1,
+            size:Math.random()*5+2
+        });
+    }
+
+    if(droneScore>droneBest){
+        droneBest=droneScore;
+        localStorage.setItem('droneDodgeBest',droneBest);
+    }
+
+    droneBestEl.textContent=droneBest;
+    droneMessage.classList.remove('hidden');
+    droneStartButton.textContent='FLY AGAIN';
+    droneMessage.querySelector('.drone-game-message-title').textContent='CRASHED';
+    droneMessage.querySelector('.drone-game-message-sub').textContent='Score: '+droneScore;
+    droneDraw();
+}
+
+function droneLoop(now){
+    if(!droneGameRunning)return;
+
+    const dt=Math.min((now-droneLastTime)/16.67,2);
+    droneLastTime=now;
+
+    droneUpdate(dt);
+    droneDraw();
+
+    droneAnimation=requestAnimationFrame(droneLoop);
+}
+
+function droneUpdate(dt){
+    const h=droneCanvas.clientHeight;
+    const w=droneCanvas.clientWidth;
+
+    dronePlayer.vy+=.36*dt;
+    dronePlayer.y+=dronePlayer.vy*dt;
+    dronePlayer.rotation=Math.min(.75,dronePlayer.rotation+.025*dt);
+
+    droneSpawnTimer+=dt;
+    const spawnEvery=Math.max(70,105-droneScore*.65);
+    if(droneSpawnTimer>spawnEvery){
+        droneSpawnTimer=0;
+        droneSpawn();
+    }
+
+    droneWorldSpeed=Math.min(6.5,2.8+droneScore*.035);
+
+    for(let i=droneObstacles.length-1;i>=0;i--){
+        const o=droneObstacles[i];
+        o.x-=droneWorldSpeed*dt;
+
+        if(!o.passed && o.x+o.width<dronePlayer.x-18){
+            o.passed=true;
+            droneScore++;
+            droneScoreEl.textContent=droneScore;
+        }
+
+        if(o.x+o.width<-20)droneObstacles.splice(i,1);
+    }
+
+    for(const p of droneParticles){
+        p.x+=p.vx*dt;
+        p.y+=p.vy*dt;
+        p.vy+=.08*dt;
+        p.life-=.035*dt;
+    }
+    droneParticles=droneParticles.filter(p=>p.life>0);
+
+    const r=15;
+    if(dronePlayer.y-r<67 || dronePlayer.y+r>h-48){
+        droneCrash();
+        return;
+    }
+
+    for(const o of droneObstacles){
+        const hitX=dronePlayer.x+16>o.x && dronePlayer.x-16<o.x+o.width;
+        const hitTop=dronePlayer.y-14<o.top;
+        const hitBottom=dronePlayer.y+14>o.top+o.gap;
+        if(hitX&&(hitTop||hitBottom)){
+            droneCrash();
+            return;
+        }
+    }
+
+    droneClouds.forEach(c=>{
+        c.x-=.18*dt;
+        if(c.x<-80)c.x=w+80;
+    });
+}
+
+function droneDraw(){
+    const w=droneCanvas.clientWidth;
+    const h=droneCanvas.clientHeight;
+    const ctx=droneCtx;
+
+    ctx.clearRect(0,0,w,h);
+
+    const sky=ctx.createLinearGradient(0,0,0,h);
+    sky.addColorStop(0,'#72c7ef');
+    sky.addColorStop(.58,'#b9e7f8');
+    sky.addColorStop(1,'#eaf8ed');
+    ctx.fillStyle=sky;
+    ctx.fillRect(0,0,w,h);
+
+    // Sun
+    ctx.beginPath();
+    ctx.arc(w-48,91,31,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,238,161,.85)';
+    ctx.fill();
+
+    // Clouds
+    droneClouds.forEach(c=>{
+        ctx.save();
+        ctx.translate(c.x,c.y);
+        ctx.scale(c.s,c.s);
+        ctx.fillStyle='rgba(255,255,255,.76)';
+        [[0,8,25],[22,0,30],[49,9,23],[28,14,38]].forEach(q=>{
+            ctx.beginPath();
+            ctx.arc(q[0],q[1],q[2]/2,0,Math.PI*2);
+            ctx.fill();
+        });
+        ctx.restore();
+    });
+
+    // Mountains
+    ctx.fillStyle='#78a98d';
+    ctx.beginPath();
+    ctx.moveTo(0,h-125);
+    for(let x=0;x<=w;x+=55){
+        ctx.lineTo(x,h-125-(Math.sin(x*.018)*34+Math.sin(x*.045)*18+45));
+    }
+    ctx.lineTo(w,h-45);
+    ctx.lineTo(0,h-45);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle='#4e826c';
+    ctx.beginPath();
+    ctx.moveTo(0,h-93);
+    for(let x=0;x<=w;x+=45){
+        ctx.lineTo(x,h-93-(Math.sin(x*.026+2)*25+Math.sin(x*.07)*12+30));
+    }
+    ctx.lineTo(w,h-45);
+    ctx.lineTo(0,h-45);
+    ctx.closePath();
+    ctx.fill();
+
+    // Obstacles
+    droneObstacles.forEach(o=>{
+        droneDrawTree(ctx,o.x,o.top-4,o.width, true);
+        droneDrawTree(ctx,o.x,o.top+o.gap+4,o.width, false);
+    });
+
+    // Ground
+    ctx.fillStyle='#557a3f';
+    ctx.fillRect(0,h-48,w,48);
+    ctx.fillStyle='#799d54';
+    ctx.fillRect(0,h-48,w,6);
+    ctx.fillStyle='rgba(255,255,255,.08)';
+    for(let x=-20;x<w+20;x+=32){
+        ctx.fillRect(x,h-33,18,3);
+    }
+
+    // Drone
+    ctx.save();
+    ctx.translate(dronePlayer.x,dronePlayer.y);
+    ctx.rotate(dronePlayer.rotation);
+    droneDrawDrone(ctx);
+    ctx.restore();
+
+    // Particles
+    droneParticles.forEach(p=>{
+        ctx.globalAlpha=Math.max(0,p.life);
+        ctx.fillStyle='#fff';
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fill();
+    });
+    ctx.globalAlpha=1;
+}
+
+function droneDrawTree(ctx,x,y,width,top){
+    const trunkW=width*.25;
+    const trunkX=x+width/2-trunkW/2;
+
+    ctx.fillStyle='#744b2b';
+    ctx.fillRect(trunkX,top,width*.25,top?40:40);
+
+    ctx.fillStyle='#2e6f45';
+    ctx.beginPath();
+    if(top){
+        ctx.moveTo(x-7,y);
+        ctx.lineTo(x+width/2,y+58);
+        ctx.lineTo(x+width+7,y);
+        ctx.lineTo(x+width*.72,y+10);
+        ctx.lineTo(x+width+3,y+30);
+        ctx.lineTo(x+width*.58,y+26);
+        ctx.lineTo(x+width*.48,y+48);
+        ctx.lineTo(x+width*.35,y+27);
+        ctx.lineTo(x+5,y+31);
+        ctx.lineTo(x+width*.28,y+9);
+    }else{
+        ctx.moveTo(x-7,y);
+        ctx.lineTo(x+width/2,y-58);
+        ctx.lineTo(x+width+7,y);
+        ctx.lineTo(x+width*.72,y-10);
+        ctx.lineTo(x+width+3,y-30);
+        ctx.lineTo(x+width*.58,y-26);
+        ctx.lineTo(x+width*.48,y-48);
+        ctx.lineTo(x+width*.35,y-27);
+        ctx.lineTo(x+5,y-31);
+        ctx.lineTo(x+width*.28,y-9);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle='#3d8950';
+    ctx.beginPath();
+    ctx.arc(x+width*.35,top?y+12:y-12,15,0,Math.PI*2);
+    ctx.fill();
+}
+
+function droneDrawDrone(ctx){
+    // Rotor blur
+    ctx.strokeStyle='rgba(20,28,35,.45)';
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.ellipse(0,-13,27,4,0,0,Math.PI*2);
+    ctx.stroke();
+
+    // Arms
+    ctx.strokeStyle='#1c2730';
+    ctx.lineWidth=5;
+    ctx.lineCap='round';
+    ctx.beginPath();
+    ctx.moveTo(-7,-3);ctx.lineTo(-22,-12);
+    ctx.moveTo(7,-3);ctx.lineTo(22,-12);
+    ctx.stroke();
+
+    // Motors
+    ctx.fillStyle='#111820';
+    ctx.beginPath();ctx.arc(-22,-12,5,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(22,-12,5,0,Math.PI*2);ctx.fill();
+
+    // Body
+    const body=ctx.createLinearGradient(-17,-6,17,13);
+    body.addColorStop(0,'#edf3f5');
+    body.addColorStop(1,'#9ca9b0');
+    ctx.fillStyle=body;
+    ctx.beginPath();
+    ctx.roundRect(-17,-7,34,21,8);
+    ctx.fill();
+
+    // Camera
+    ctx.fillStyle='#18232c';
+    ctx.beginPath();
+    ctx.arc(9,9,6,0,Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle='#8bd4ef';
+    ctx.beginPath();
+    ctx.arc(9,9,3,0,Math.PI*2);
+    ctx.fill();
+
+    // LEDs
+    ctx.fillStyle='#77e08b';
+    ctx.fillRect(-11,1,4,3);
+    ctx.fillStyle='#f0a45a';
+    ctx.fillRect(7,1,4,3);
+}
+
+function droneGameInput(e){
+    if(e) e.preventDefault();
+    if(!droneGameRunning){
+        if(droneGameOver)droneStart();
+        else droneStart();
+    }else{
+        droneFlap();
+    }
+}
+
+droneCanvas.addEventListener('pointerdown',droneGameInput);
+droneStartButton.addEventListener('click',function(e){
+    e.stopPropagation();
+    droneStart();
+});
+droneGameClose.addEventListener('click',function(e){
+    e.stopPropagation();
+    droneClose();
+});
+droneGameOverlay.addEventListener('click',function(e){
+    if(e.target===droneGameOverlay)droneClose();
+});
+document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && droneGameOverlay.classList.contains('open')){
+        droneClose();
+        return;
+    }
+    if(e.code==='Space' && droneGameOverlay.classList.contains('open')){
+        e.preventDefault();
+        droneGameInput(e);
+    }
+});
+
+/* Five clicks within one second */
+airborneLogo.addEventListener('click',function(e){
+    e.preventDefault();
+    logoClicks++;
+    clearTimeout(logoClickTimer);
+
+    if(logoClicks>=5){
+        logoClicks=0;
+        droneOpen();
+        return;
+    }
+
+    logoClickTimer=setTimeout(function(){
+        logoClicks=0;
+    },1000);
+});
+
+droneReset();
 </script>
 </body>
 </html>
